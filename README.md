@@ -4,6 +4,8 @@
 ``` 
 This project is for Library management, was generated with Angular CLI version 9.1.1 and Node 10.19.0 
 ```
+## Perfect Scenario
+![src](src.png)
 ## Get started
 ```bash
 https://github.com/lindaAcc/ProjetWebMaster.git
