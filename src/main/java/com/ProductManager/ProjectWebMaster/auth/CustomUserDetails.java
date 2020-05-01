@@ -1,4 +1,5 @@
 package com.ProductManager.ProjectWebMaster.auth;
+/** This class is used to auth user**/
 /** Main classes **/
 import com.ProductManager.ProjectWebMaster.models.Role;
 import com.ProductManager.ProjectWebMaster.models.User;
@@ -18,9 +19,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class CustomUserDetails implements UserDetailsService{
@@ -35,12 +38,14 @@ public class CustomUserDetails implements UserDetailsService{
 
     /** Return a specific user using their email
      * @param : String email **/
+
     public User findUserByEmail(String email){
         return userInterface.findByEmail(email);
     }
 
     /** Save user using Hash map into the Data base
      * @param : User **/
+
     public void saveUser (User user){
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword())); // Encrypt password
@@ -52,11 +57,29 @@ public class CustomUserDetails implements UserDetailsService{
         userInterface.save(user);
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+    private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles){
+
+        Set<GrantedAuthority> roles = new HashSet<>();
+        userRoles.forEach((role -> {
+            roles.add(new SimpleGrantedAuthority(role.getRole()));
+        }));
+
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
+        return grantedAuthorities;
     }
 
+    private UserDetails buildUserAuthentication (User user, List<GrantedAuthority> authorities){
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+    }
 
-
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userInterface.findByEmail(email);
+        if(user != null){
+            List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
+            return buildUserAuthentication(user, authorities);
+        }else {
+            throw new UsernameNotFoundException("Unknown user");
+        }
+    }
 }
