@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -40,6 +41,12 @@ public class AuthenticationController {
     private CustomUserDetails userService;
 
 
+    @RequestMapping(value="/", method=RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public String hello() {
+        return "hello";
+    }
+
     @GetMapping("/allUsers")
     public Iterable<User> getAllUsers(){
         return users.findAll();
@@ -62,7 +69,6 @@ public class AuthenticationController {
     }
 
     /** Insert new User into collection "users" **/
-    @SuppressWarnings("rawtypes")
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody User user) {
         User userExists = userService.findUserByEmail(user.getEmail());
