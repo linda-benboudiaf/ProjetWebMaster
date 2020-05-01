@@ -2,7 +2,8 @@
 ![logo](img/logo.png)
 ## Description
 ``` 
-This project is for Library management, was generated with Angular CLI version 9.1.1 and Node 10.19.0 
+This project is for Library management, was generated with Angular CLI version 9.1.1 
+Node 10.19.0 & Spring Boot & MongoDB  
 ```
 ## Perfect Scenario
 ![src](img/src.png)
@@ -16,6 +17,7 @@ ng serve - > Navigate to localhost:4200
 - `Java 8`
 - `NodeJs `
 - `Angular 9`
+- `Mongo DB`
 ---
 ## Authors 
 - [Linda Ben boudiaf](https://github.com/lindaAcc)
