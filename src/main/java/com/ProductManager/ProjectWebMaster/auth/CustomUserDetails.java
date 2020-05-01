@@ -79,7 +79,7 @@ public class CustomUserDetails implements UserDetailsService{
             List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
             return buildUserAuthentication(user, authorities);
         }else {
-            throw new UsernameNotFoundException("Unknown user");
+            throw new UsernameNotFoundException("Error");
         }
     }
 }

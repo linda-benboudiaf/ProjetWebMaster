@@ -13,13 +13,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.*;
 
 /** API implementation **/
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /** Import all Users packages tools **/
 import com.ProductManager.ProjectWebMaster.token.JwtTokenProvider;
@@ -43,7 +39,12 @@ public class AuthenticationController {
     @Autowired
     private CustomUserDetails userService;
 
-    @SuppressWarnings("rawtypes")
+
+    @GetMapping("/allUsers")
+    public Iterable<User> getAllUsers(){
+        return users.findAll();
+    }
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationBody data) {
         try {
@@ -53,6 +54,7 @@ public class AuthenticationController {
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);
             model.put("token", token);
+            System.out.println(token);
             return ok(model);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid Email or Password retry ! ");
