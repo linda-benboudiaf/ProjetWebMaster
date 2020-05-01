@@ -1,5 +1,5 @@
 # ```Library Manager ```
-#![logo](logo.png)
+![logo](logo.png)
 ## Description
 ``` 
 This project is for Library management, was generated with Angular CLI version 9.1.1 and Node 10.19.0 
