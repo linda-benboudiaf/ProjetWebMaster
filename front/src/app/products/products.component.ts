@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+/**These component will display the list of products **/
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
