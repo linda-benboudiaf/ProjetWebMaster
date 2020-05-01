@@ -26,7 +26,6 @@ import com.ProductManager.ProjectWebMaster.token.JwtTokenProvider;
 import com.ProductManager.ProjectWebMaster.auth.CustomUserDetails;
 import com.ProductManager.ProjectWebMaster.models.User;
 import com.ProductManager.ProjectWebMaster.interfaces.UserInterface;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @CrossOrigin(origins = "*")
 @RestController
